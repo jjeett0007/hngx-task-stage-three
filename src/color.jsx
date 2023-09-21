@@ -45,6 +45,7 @@ const Grid = () => {
               ? item.description.split(" ").slice(0, 2).join(" ")
               : "No description available",
           }));
+
           setItems(slicedData);
           setIsLoading(false);
         }
