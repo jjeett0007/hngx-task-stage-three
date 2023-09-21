@@ -2,7 +2,9 @@
   margin: 2px;
   overflow-x: hidden;
   text-align: center;
+  background-color: #242424;
 }
 
-
-
+body {
+  background-color: #242424;
+}
