@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Skeleton from "react-skeleton-loader";
 import { AnimationWrapper } from "react-hover-animation";
+import { ThreeDots } from "react-loader-spinner";
 
 const API_KEY = import.meta.env.VITE_SPLASH_API_KEY;
 
@@ -27,7 +28,6 @@ const Grid = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = React.useState("");
-
   const isAuthenticated = !!localStorage.getItem("userId");
 
   useEffect(() => {
@@ -195,10 +195,15 @@ export default Grid;
 const Header = ({ handleSearchInputChange }) => {
   const isAuthenticated = !!localStorage.getItem("userId");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onLogout = () => {
-    localStorage.removeItem("userId");
-    navigate("/login");
+    setIsLoading(true);
+    setTimeout(() => {
+      localStorage.removeItem("userId");
+      setIsLoading(false);
+      navigate("/login");
+    }, 4000);
   };
   return (
     <HeaderContainer>
@@ -218,7 +223,22 @@ const Header = ({ handleSearchInputChange }) => {
         />
       </SearchContainer>
       {isAuthenticated ? (
-        <LogoutButton onClick={onLogout}>Logout</LogoutButton>
+        <LogoutButton onClick={onLogout}>
+          {isLoading ? (
+            <ThreeDots
+              height="10"
+              width="40"
+              radius="9"
+              color="#4fa94d"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            "Logout"
+          )}
+        </LogoutButton>
       ) : (
         <Link to="/login">
           <LoginButton>Login</LoginButton>
