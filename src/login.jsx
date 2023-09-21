@@ -28,7 +28,6 @@ const Login = () => {
       const querySnapshot = await getDocs(q);
 
       if (querySnapshot.size === 0) {
-
         setTimeout(() => {
           toast.error("user not recognized");
           setIsLoading(false);
@@ -39,7 +38,6 @@ const Login = () => {
       const userData = querySnapshot.docs[0].data();
 
       if (userData.password !== password) {
-
         setTimeout(() => {
           toast.error("incorrect password, please try again");
           setIsLoading(false);
@@ -239,3 +237,5 @@ const CreateAccountButton = styled.button`
   cursor: pointer;
   margin-top: 10px;
 `;
+
+

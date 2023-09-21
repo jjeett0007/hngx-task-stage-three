@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Skeleton from "react-skeleton-loader";
 import { AnimationWrapper } from "react-hover-animation";
-import { ThreeDots } from "react-loader-spinner";
+import { ThreeDots, Blocks } from "react-loader-spinner";
 
 const API_KEY = import.meta.env.VITE_SPLASH_API_KEY;
 
@@ -14,12 +14,18 @@ const SkeletonLoader = () => {
   return (
     <DragableDiv
       style={{
-        height: "350px",
         margin: "1px",
         border: "none",
       }}
     >
-      <Skeleton width="180px" height="350px" />
+      <Blocks
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="blocks-loading"
+        wrapperStyle={{}}
+        wrapperClass="blocks-wrapper"
+      />
     </DragableDiv>
   );
 };
@@ -42,8 +48,8 @@ const Grid = () => {
             id: `item-${index}`,
             imageUrl: item.urls.regular,
             description: item.description
-              ? item.description.split(" ").slice(0, 2).join(" ")
-              : "No description available",
+              ? item.description.split(" ").slice(0, 1).join(" ")
+              : "description",
           }));
 
           setItems(slicedData);
@@ -70,7 +76,7 @@ const Grid = () => {
           imageUrl: item.urls.regular,
           description: item.description
             ? item.description.split(" ").slice(0, 2).join(" ")
-            : "No description available",
+            : "description",
         }));
         setItems(slicedData);
         setIsLoading(false);
@@ -277,6 +283,10 @@ const GridContainer = styled.div`
   width: 90%;
   margin: auto;
   place-items: center;
+
+  @media (max-width: 728px) {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
 `;
 
 const GridItemContainer = styled.div`
@@ -319,10 +329,20 @@ const DragableDiv = styled.div`
   margin: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
+  @media (max-width: 728px) {
+    width: 90px;
+    height: 150px;
+  }
+
   img {
     width: 95%;
     height: 300px;
     border-radius: 10px;
+
+    @media (max-width: 728px) {
+      width: 80px;
+      height: 120px;
+    }
   }
 
   p {
